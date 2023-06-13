@@ -1,0 +1,7 @@
+fastai
+mediapipe
+numpy
+pandas
+Pillow
+streamlit
+imageio[ffmpeg]
