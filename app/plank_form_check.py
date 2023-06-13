@@ -2,16 +2,12 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from fastai.tabular.all import *
+import cv2
 import mediapipe as mp
 import csv
 import os
 import math
 import time
-import cv2
-import matplotlib.pyplot as plt
-
-# Set backend for matplotlib
-plt.switch_backend('Agg')
 
 # Start Mediapipe
 mp_pose = mp.solutions.pose
@@ -73,11 +69,6 @@ def process_video(video_file):
 learn = load_learner('model.pkl')
 
 # Streamlit app
-
-import subprocess
-subprocess.call(['apt-get', 'update'])
-subprocess.call(['apt-get', 'install', '-y', 'libgl1-mesa-glx'])
-
 st.title("Plank Form Checker")
 st.write("Upload a video of you planking from the side for a form check.")
 
