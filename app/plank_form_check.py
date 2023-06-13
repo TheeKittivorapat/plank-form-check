@@ -2,8 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from fastai.tabular.all import *
-from PIL import Image
-import imageio
+import cv2
 import mediapipe as mp
 import csv
 import os
@@ -29,15 +28,19 @@ midpoint_pairs = [
 
 # Process frames
 def process_video(video_file):
-    reader = imageio.get_reader(video_file)
+    cap = cv2.VideoCapture(video_file)
     frames = []
 
-    for frame in reader:
-        frame = Image.fromarray(frame)
-        frame = frame.convert("RGB")
+    while cap.isOpened():
+        ret, frame = cap.read()
+
+        if not ret:
+            break
+
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         # Get landmarks
-        results = pose.process(np.array(frame))
+        results = pose.process(frame)
 
         row = []
         if results.pose_landmarks:
@@ -57,7 +60,8 @@ def process_video(video_file):
 
         frames.append(row)
 
-    reader.close()
+    cap.release()
+    cv2.destroyAllWindows()
 
     return frames
 
@@ -123,7 +127,7 @@ if uploaded_file is not None:
         label_dict = {0: 'Correct Form', 1: 'Hip is too high', 2: 'Hip is too low'}
 
         # Open video
-        reader = imageio.get_reader(temp_file)
+        cap = cv2.VideoCapture(temp_file)
 
         video_placeholder = st.empty()
 
@@ -131,8 +135,11 @@ if uploaded_file is not None:
 
         # Loop through frames and show label
         for i, frame in enumerate(frames):
-            img = Image.fromarray(reader.get_data(i))
-            img = img.convert("RGB")
+            ret, img = cap.read()
+            if not ret:
+                break
+
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
             video_placeholder.image(img, channels="RGB", use_column_width=True)
 
@@ -140,5 +147,5 @@ if uploaded_file is not None:
 
             time.sleep(0.1)
 
-        reader.close()
+        cap.release()
         os.remove(temp_file)
