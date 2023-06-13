@@ -69,6 +69,11 @@ def process_video(video_file):
 learn = load_learner('model.pkl')
 
 # Streamlit app
+
+import subprocess
+subprocess.call(['apt-get', 'update'])
+subprocess.call(['apt-get', 'install', '-y', 'libgl1-mesa-glx'])
+
 st.title("Plank Form Checker")
 st.write("Upload a video of you planking from the side for a form check.")
 
