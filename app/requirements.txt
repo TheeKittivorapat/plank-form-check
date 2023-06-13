@@ -3,3 +3,4 @@ streamlit == 1.21
 pandas
 numpy
 fastai
+opencv-python
