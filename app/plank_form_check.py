@@ -2,12 +2,16 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 from fastai.tabular.all import *
-import cv2
 import mediapipe as mp
 import csv
 import os
 import math
 import time
+import cv2
+import matplotlib.pyplot as plt
+
+# Set backend for matplotlib
+plt.switch_backend('Agg')
 
 # Start Mediapipe
 mp_pose = mp.solutions.pose
