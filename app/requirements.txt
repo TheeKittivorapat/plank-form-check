@@ -1,5 +1,5 @@
-mediapipe == 0.9.2.1
-streamlit == 1.21
+mediapipe
+streamlit
 pandas
 numpy
 fastai
