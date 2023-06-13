@@ -8,6 +8,7 @@ import csv
 import os
 import math
 import time
+import subprocess
 
 # Start Mediapipe
 mp_pose = mp.solutions.pose
@@ -69,6 +70,11 @@ def process_video(video_file):
 learn = load_learner('model.pkl')
 
 # Streamlit app
+
+# Install libgl1-mesa-glx
+subprocess.call(['apt-get', 'update'])
+subprocess.call(['apt-get', 'install', '-y', 'libgl1-mesa-glx'])
+
 st.title("Plank Form Checker")
 st.write("Upload a video of you planking from the side for a form check.")
 
