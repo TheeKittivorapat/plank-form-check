@@ -1,7 +1,6 @@
-fastai
+opencv-python
 mediapipe
-numpy
-pandas
-Pillow
 streamlit
-imageio[ffmpeg]
+pandas
+numpy
+fastai
