@@ -3,4 +3,3 @@ streamlit
 pandas
 numpy
 fastai
-opencv-python-headless
